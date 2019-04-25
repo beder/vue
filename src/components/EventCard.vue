@@ -13,19 +13,8 @@
 
 <script>
 export default {
-  data() {
-    return {
-      event: {
-        id: 1,
-        title: 'Beach cleanup',
-        date: 'Tue Aug 19, 2018',
-        time: '6:00',
-        attendees: [
-          { id: 'abc123', name: 'Beder Acosta' },
-          { id: 'abc345', name: 'John Cusack' }
-        ]
-      }
-    }
+  props: {
+    event: Object
   }
 }
 </script>
