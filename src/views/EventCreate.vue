@@ -69,12 +69,12 @@ export default {
     Datepicker
   },
   computed: {
-    ...mapState(['user', 'categories', 'count'])
+    ...mapState(['user', 'categories'])
   },
   methods: {
     createEvent() {
       this.$store
-        .dispatch('createEvent', this.event)
+        .dispatch('event/createEvent', this.event)
         .then(() => {
           this.$router.push({
             name: 'event-show',
@@ -87,7 +87,7 @@ export default {
         })
     },
     getNewEvent() {
-      const user = this.$store.state.user
+      const user = this.$store.state.user.user
       const id = Math.floor(Math.random() * 1000000)
 
       return {
