@@ -1,7 +1,7 @@
 <template>
-  <div class="notification-bar" :class="notificationTypeClass">
-    <p>{{ notification.message }}</p>
-  </div>
+  <v-alert :value="true" :type="notification.type" dismissible>{{
+    notification.message
+  }}</v-alert>
 </template>
 
 <script>
@@ -20,11 +20,6 @@ export default {
       required: true
     }
   },
-  computed: {
-    notificationTypeClass() {
-      return `-text-${this.notification.type}`
-    }
-  },
   methods: mapActions('notification', ['removeNotification']),
   beforeDestroy() {
     clearTimeout(this.timeout)
@@ -37,9 +32,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.notification-bar {
-  margin: 1em 0 1em;
-}
-</style>

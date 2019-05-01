@@ -14,9 +14,9 @@
     <p>{{ event.description }}</p>
     <h2>
       Attendees
-      <span class="badge -fill-gradient">
-        {{ event.attendees ? event.attendees.length : 0 }}
-      </span>
+      <span class="badge -fill-gradient">{{
+        event.attendees ? event.attendees.length : 0
+      }}</span>
     </h2>
     <ul class="list-group">
       <li
@@ -45,24 +45,3 @@ export default {
   methods: mapActions('event', ['fetchEvent'])
 }
 </script>
-
-<style scoped>
-.location {
-  margin-bottom: 0;
-}
-.location > .icon {
-  margin-left: 10px;
-}
-.event-header > .title {
-  margin: 0;
-}
-.list-group {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-.list-group > .list-item {
-  padding: 1em 0;
-  border-bottom: solid 1px #e5e5e5;
-}
-</style>

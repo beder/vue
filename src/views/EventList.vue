@@ -1,7 +1,15 @@
 <template>
   <div>
     <h1>Events for {{ user.user.name }}</h1>
-    <EventCard v-for="event in event.events" :key="event.id" :event="event" />
+    <v-layout row wrap>
+      <v-flex xs12 sm6 offset-sm3>
+        <EventCard
+          v-for="event in event.events"
+          :key="event.id"
+          :event="event"
+        />
+      </v-flex>
+    </v-layout>
     <template v-if="previousPage">
       <router-link
         :to="{ name: 'event-list', query: { page: previousPage } }"

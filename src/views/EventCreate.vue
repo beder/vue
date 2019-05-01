@@ -104,9 +104,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.field {
-  margin-bottom: 24px;
-}
-</style>
