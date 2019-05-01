@@ -16,14 +16,32 @@ export const mutations = {
 }
 
 export const actions = {
-  createEvent({ commit, rootState }, event) {
+  createEvent({ dispatch, commit, rootState }, event) {
     console.log('Creating event for user ' + rootState.user.user.name)
 
-    return EventService.postEvent(event).then(() => {
-      commit('ADD_EVENT', event)
-    })
+    return EventService.postEvent(event)
+      .then(() => {
+        commit('ADD_EVENT', event)
+
+        const notification = {
+          type: 'success',
+          message: 'Event successfully created.'
+        }
+
+        dispatch('notification/addNotification', notification, { root: true })
+      })
+      .catch(error => {
+        const notification = {
+          type: 'error',
+          message: 'Could not create event. ' + error.message
+        }
+
+        dispatch('notification/addNotification', notification, { root: true })
+
+        throw error
+      })
   },
-  fetchEvents({ commit }, { page, limit }) {
+  fetchEvents({ dispatch, commit }, { page, limit }) {
     EventService.getEvents(page, limit)
       .then(response => {
         commit(
@@ -33,10 +51,15 @@ export const actions = {
         commit('SET_EVENTS', response.data)
       })
       .catch(error => {
-        console.log('There was an error: ' + error.response)
+        const notification = {
+          type: 'error',
+          message: 'Could not fetch events. ' + error.message
+        }
+
+        dispatch('notification/addNotification', notification, { root: true })
       })
   },
-  fetchEvent({ commit, getters }, id) {
+  fetchEvent({ dispatch, getters, commit }, id) {
     var event = getters.getEventById(id)
     if (event) {
       commit('SET_EVENT', event)
@@ -46,7 +69,12 @@ export const actions = {
           commit('SET_EVENT', response.data)
         })
         .catch(error => {
-          console.log('There was an error: ' + error.response)
+          const notification = {
+            type: 'error',
+            message: 'Could not fetch event. ' + error.message
+          }
+
+          dispatch('notification/addNotification', notification, { root: true })
         })
     }
   }

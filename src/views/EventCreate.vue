@@ -82,9 +82,7 @@ export default {
           })
           this.event = this.getNewEvent()
         })
-        .catch(() => {
-          console.log('Could not create event')
-        })
+        .catch(() => {})
     },
     getNewEvent() {
       const user = this.$store.state.user.user
